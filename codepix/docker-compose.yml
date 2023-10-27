@@ -1,18 +1,11 @@
 version: "3"
 
 services:
-  app:
-    build: .
-    ports:
-      - "50051:50051"
-    volumes:
-      - .:/go/src/
-    extra_hosts:
-      - "host.docker.internal:172.17.0.1"
-
   db:
     image: postgres:9.4
     restart: always
+    logging:
+      driver: none
     tty: true
     volumes:
       - .pgdata:/var/lib/postgresql/data
@@ -24,11 +17,15 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
+    logging:
+      driver: none
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    logging:
+      driver: none
     depends_on:
       - zookeeper
     ports:
@@ -68,6 +65,8 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
+    logging:
+      driver: none
     tty: true
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@user.com
@@ -76,3 +75,16 @@ services:
       - "9000:80"
     depends_on:
       - db
+
+  app:
+    depends_on:
+      - kafka
+    build: .
+    ports:
+      - "50051:50051"
+    volumes:
+      - .:/app/
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    environment:
+      - NODE_ENV=production
