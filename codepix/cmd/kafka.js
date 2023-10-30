@@ -1,6 +1,8 @@
 import * as commander from "commander"
 
 import { NewKafkaProducer, Publish } from "../application/kafka/producer.js"
+import { KafkaProcessor } from "../application/kafka/process.js"
+import { database } from "../app.js"
 
 export const kafkaCommand = new commander.Command()
   .command("kafka")
@@ -13,6 +15,12 @@ export const kafkaCommand = new commander.Command()
     }
     console.log("connected!")
 
-    await Publish("Olá Kafka", "transactions", producer)
-    console.log("Message sent!")
+    setInterval(async () => {
+      await Publish("Olá Kafka", "transactions", producer)
+    }, 500)
+
+    const kafkaProcessor = KafkaProcessor.NewKafkaProcessor(database, producer)
+
+    console.log("Consuming messages!")
+    await kafkaProcessor.Consume()
   })

@@ -1,17 +1,19 @@
 import { Kafka } from "kafkajs"
 
-const kafka = new Kafka({
+export const kafka = new Kafka({
   clientId: 'codepix',
   brokers: ['kafka:9092'],
 })
 
 export async function NewKafkaProducer() {
-  const producer = kafka.producer()
+  const producer = kafka.producer({
+    allowAutoTopicCreation: true
+  })
 
   try {
     await producer.connect()
   } catch(error) {
-    console.log("Failed to connect producer")
+    console.log("Failed to connect producer!")
     return [null, error]
   }
 
@@ -19,12 +21,16 @@ export async function NewKafkaProducer() {
 }
 
 export async function Publish(message, topic, producer) {
-  await producer.send({
-    topic: "my-topic",
-    messages: [
-      { value: "Hello world!" }
-    ]
-  })
-  
-  return null
+  try {
+    await producer.send({
+      topic,
+      messages: [
+        { value: message }
+      ]
+    })
+
+    return null
+  } catch(error) {
+    return error
+  }
 }

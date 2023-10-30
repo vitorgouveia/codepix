@@ -8,4 +8,4 @@ RUN npm i
 
 COPY . .
 
-CMD ["npm", "start", "kafka"]
+CMD ["npm", "start", "all"]
