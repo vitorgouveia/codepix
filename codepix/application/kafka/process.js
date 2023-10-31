@@ -93,7 +93,7 @@ export class KafkaProcessor {
 
     const transactionUseCase = TransactionUseCaseFactory()
 
-    const [registeredTransaction, error] = transactionUseCase.Register(
+    const [registeredTransaction, error] = await transactionUseCase.Register(
       transaction.accountId,
       transaction.amount,
       transaction.pixKeyTo,
@@ -108,6 +108,7 @@ export class KafkaProcessor {
 
     const bankCode = registeredTransaction.pixKeyTo.account.bank.code
     const topic = `bank${bankCode}`
+    console.log({topic})
 
     transaction.id = registeredTransaction.id
     transaction.status = Status.Pending
@@ -120,7 +121,8 @@ export class KafkaProcessor {
 
     // send via kafka
     console.log("serialized transaction", transactionJSON)
-    await Publish(transactionJSON, topic, this.producer)
+    const kafkaErr = await Publish(transactionJSON, topic, this.producer)
+    console.log("sent to kafka",kafkaErr)
 
     return null
   }

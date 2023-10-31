@@ -30,7 +30,7 @@ export class TransactionsController {
     return this.transactionsService.findAll(bankAccountId);
   }
 
-  @MessagePattern('bank0001')
+  @MessagePattern('bank001')
   async onTransactionProcessedBank001(
     @Payload(new ValidationPipe())
     message: CreateTransactionFromAnotherBankAccountDto | ConfirmTransactionDto,
@@ -42,7 +42,7 @@ export class TransactionsController {
     await this.processTransaction(message);
   }
 
-  @MessagePattern('bank0002')
+  @MessagePattern('bank002')
   async onTransactionProcessedBank002(
     @Payload(new ValidationPipe())
     message: CreateTransactionFromAnotherBankAccountDto | ConfirmTransactionDto,

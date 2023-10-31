@@ -49,4 +49,36 @@ export class DB {
 
     return [item, null]
   }
+
+  update(entity, table) {
+    const error = entity.isValid()
+
+    if(error !== null) {
+      return error
+    }
+
+    if(!this.store[table]) {
+      this.store[table] = []
+    }
+    
+    if(this.store[table].length === 0) {
+      this.store[table].push(entity)
+      return null
+    }
+
+    const index = this.store[table]
+      .findIndex(item => item.id == entity.id)
+
+    if(index === -1) {
+      this.store[table].push(entity)
+      return null
+    }
+
+    console.log(`updating at index ${index}`)
+    console.log(`updating record: ${JSON.stringify(this.store[table][index])}`)
+
+    this.store[table][index] = entity
+
+    return error
+  }
 }

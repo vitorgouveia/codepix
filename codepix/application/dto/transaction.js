@@ -15,7 +15,7 @@ export class TransactionDTO {
     accountId,
     amount,
     pixKeyTo,
-    pixKindTo,
+    pixKeyKindTo,
     description,
     status,
     error
@@ -24,7 +24,7 @@ export class TransactionDTO {
     this.accountId = accountId
     this.amount = amount
     this.pixKeyTo = pixKeyTo
-    this.pixKindTo = pixKindTo
+    this.pixKeyKindTo = pixKeyKindTo
     this.description = description
     this.status = status
     this.error = error
@@ -36,12 +36,7 @@ export class TransactionDTO {
     }
 
     if(this.status !== Status.Pending && this.status !== Status.Completed && this.status !== Status.Error) {
-      return "'status' is invalid!"
-    }
-
-    // todo, accountFrom does not exist
-    if(this.pixKeyTo.accountId === this.accountFrom.id) {
-      return "The source and destination account cannot be the same!"
+      return `Status: ${this.status} is invalid!`
     }
     
     return null
@@ -55,7 +50,6 @@ export class TransactionDTO {
       return [null, "Failed to parse transaction JSON."]
     }
 
-    console.log(transactionJSON)
     const transaction = new TransactionDTO(transactionJSON)
 
     const error = transaction.isValid()

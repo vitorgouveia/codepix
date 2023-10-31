@@ -54,6 +54,16 @@ const fixtures = {
         owner_name: 'User BBX 2',
       },
     },
+    {
+      model: 'PixKey',
+      fields: {
+        id: '8871e6b2-ce6d-4566-b1bc-83d5a9716f1c',
+        kind: 'cpf',
+        key: '1',
+        bank_account_id: '51a720b2-5144-4d7f-921d-57023b1e24c1',
+        createdAt: new Date(),
+      },
+    },
   ],
   '002': [
     {

@@ -39,7 +39,7 @@ export class Transaction extends Base {
     }
 
     if(this.status !== Status.Pending && this.status !== Status.Completed && this.status !== Status.Error) {
-      return "'status' is invalid!"
+      return `Status: ${this.status} is invalid!`
     }
 
     if(this.pixKeyTo.accountId === this.accountFrom.id) {

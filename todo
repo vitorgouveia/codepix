@@ -2,3 +2,13 @@
 [] readme com instruções
 [] testar todas rotas, transferências e mais (organizar melhor)
 [] corrigir erro do backend (dto/transaction.js)
+[] fazer o deploy (como???)
+  - next.js na vercel
+  - codepix no render
+  - kafka???
+[] http/3?
+[] transações apenas somam para outras contas mas não descontam da minha conta.
+[] listar chaves pix
+[] dark mode
+[] ui mais bonita
+[] constant 'no key found error', add fixtures do bacen
