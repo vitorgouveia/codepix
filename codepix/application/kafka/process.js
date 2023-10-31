@@ -19,7 +19,7 @@ export class KafkaProcessor {
 
   async Consume() {
     const consumer = kafka.consumer({
-      groupId: "consumergroup",
+      groupId: process.env.KAFKA_CONSUMER_GROUP,
       allowAutoTopicCreation: true
     })
 
@@ -30,7 +30,10 @@ export class KafkaProcessor {
       return [null, error]
     }
 
-    const topics = ["transactions"]
+    const topics = [
+      process.env.KAFKA_TRANSACTIONS_TOPIC,
+      process.env.KAFKA_TRANSACTION_CONFIRMATION_TOPIC
+    ]
 
     try {
       await consumer.subscribe({
@@ -60,8 +63,8 @@ export class KafkaProcessor {
 
   async #processMessage(topic, message) {
     const Topics = {
-      Transaction: "transactionsa",
-      TransactionConfirmation: "transaction_confirmation",
+      Transaction: process.env.KAFKA_TRANSACTIONS_TOPIC,
+      TransactionConfirmation: process.env.KAFKA_TRANSACTION_CONFIRMATION_TOPIC,
     }
 
     if(topic === Topics.Transaction) {

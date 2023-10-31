@@ -1,0 +1,16 @@
+@urlDev = http://localhost:3000
+@bankAccountId = 1941cdbc-b281-46df-9225-0f822431b30f
+
+GET {{urlDev}}/bank-accounts/{{bankAccountId}}/transactions
+
+###
+
+POST {{urlDev}}/bank-accounts/{{bankAccountId}}/transactions
+Content-Type: application/json
+
+{
+  "pix_key_key": "test@mail.com",
+  "pix_key_kind": "email",
+  "description": "Minha descrição foda",
+  "amount": 1
+}

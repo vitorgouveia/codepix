@@ -27,7 +27,7 @@ export class PixUseCase {
   }
 
   async FindKey(key, kind) {
-    const [pixKey, error] = this.#pixKeyRepository.FindKeyByKind(key, kind)
+    const [pixKey, error] = await this.#pixKeyRepository.FindKeyByKind(key, kind)
 
     if(error !== null) {
       return [null, error]

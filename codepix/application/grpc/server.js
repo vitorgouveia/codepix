@@ -21,12 +21,6 @@ import { PixKeyRepository } from "../../infra/repository/pix.js"
 import { PixUseCase } from "../usecase/pix.js"
 import { PixService } from "./pix.js"
 
-const serviceAdapter = (applicationService) => async (call, callback) => {
-  const [contract, error] = await applicationService(call)
-
-  callback(error, contract)
-}
-
 export function StartGrpcServer(database, port) {
   const server = new grpc.Server()
 
@@ -37,8 +31,35 @@ export function StartGrpcServer(database, port) {
   const pixService = new PixService(pixUseCase)
 
   server.addService(pixkey.PixService.service, {
-    RegisterPixKey: serviceAdapter(pixService.RegisterPixKey),
-    Find: serviceAdapter(pixService.Find),
+    // RegisterPixKey: (call, callback) => pixService.RegisterPixKey(call).then(([data, error]) => callback(error, data)),
+    RegisterPixKey: async (call, callback) => {
+      const [data, error] = await pixService.RegisterPixKey(call)
+
+      if(error !== null) {
+        return callback({
+          code: grpc.status.CANCELLED,
+          details: error
+        })
+      }
+
+      return callback(null, data)
+    },
+    Find: async (call, callback) => {
+      const [data, error] = await pixService.Find(call)
+
+      if(error !== null) {
+        return callback({
+          code: grpc.status.CANCELLED,
+          details: error
+        })
+      }
+
+      return callback(null, data)
+    }
+    // Find: (call, callback) => pixService.Find(call).then((result) => {
+    //   const [data, error] = result
+    //   callback(error ? new Error(error) : null, data)
+    // }),
   })
 
   server.bindAsync(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure(), (error) => {

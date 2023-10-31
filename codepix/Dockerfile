@@ -1,11 +1,7 @@
-FROM node:18-alpine
+FROM node:20-slim
 
-WORKDIR /app
+WORKDIR /home/node/app
 
-COPY package*.json ./
+USER node
 
-RUN npm i
-
-COPY . .
-
-CMD ["npm", "start", "all"]
+CMD ["tail", "-f", "/dev/null"]

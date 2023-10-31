@@ -1,5 +1,3 @@
-import { PixKey } from "../../domain/model/pix-key.js"
-
 export class PixService {
   #pixUseCase
   
@@ -7,10 +5,10 @@ export class PixService {
     this.#pixUseCase = pixUseCase
   }
 
-  async RegisterPixKey() {
-    const key = ""
-    const kind = ""
-    const accountId = ""
+  async RegisterPixKey(call) {
+    const key = call.request.key
+    const kind = call.request.kind
+    const accountId = call.request.accountId
 
     const [registeredKey, error] = await this.#pixUseCase.RegisterKey(key, kind, accountId)
     if(error !== null) {
@@ -32,9 +30,9 @@ export class PixService {
     ]
   }
 
-  async Find() {
-    const key = ""
-    const kind = ""
+  async Find(call) {
+    const key = call.request.key
+    const kind = call.request.kind
 
     const [pixKey, error] = await this.#pixUseCase.FindKey(key, kind)
     if(error !== null) {

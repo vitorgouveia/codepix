@@ -35,7 +35,7 @@ export class PixKeyRepository {
     return null
   }
 
-  async FindKeyById(key, kind) {
+  async FindKeyByKind(key, kind) {
     const [pixKey, error] = await this.db.select("pixKey", {
       kind,
       key

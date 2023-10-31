@@ -1,0 +1,17 @@
+@urlDev = http://localhost:3000
+
+GET {{urlDev}}/bank-accounts
+
+###
+
+GET {{urlDev}}/bank-accounts/1941cdbc-b281-46df-9225-0f822431b30f
+
+###
+
+POST {{urlDev}}/bank-accounts
+Content-Type: application/json
+
+{
+  "account_number": "4131-1",
+  "owner_name": "Vitor Gouveia"
+}

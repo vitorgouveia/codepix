@@ -4,7 +4,7 @@ export class DB {
   /** @type {Record<string, any[]>} */
   store = {}
   
-  constructor(store) {
+  constructor(store = {}) {
     this.store = store
   }
 
@@ -32,7 +32,7 @@ export class DB {
 
   select(table, query) {
     const arr = this.store[table] || []
-    
+
     const item = arr.find(item => {
       for (const key in query) {
         if (item[key] !== query[key]) {

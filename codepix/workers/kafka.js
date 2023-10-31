@@ -13,14 +13,14 @@ if(error !== null) {
 
 worker_threads.parentPort.postMessage("Producer connected!")
 
-setInterval(async () => {
-  const error = await Publish("Olá Kafka", "transactions", producer)
+// setInterval(async () => {
+//   const error = await Publish("Olá Kafka", "transactions", producer)
 
-  if(error !== null) {
-    console.log(error)
-    return
-  }
-}, 500)
+//   if(error !== null) {
+//     console.log(error)
+//     return
+//   }
+// }, 500)
 
 const kafkaProcessor = KafkaProcessor.NewKafkaProcessor(database, producer)
 

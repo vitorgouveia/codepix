@@ -39,6 +39,7 @@ export class TransactionDTO {
       return "'status' is invalid!"
     }
 
+    // todo, accountFrom does not exist
     if(this.pixKeyTo.accountId === this.accountFrom.id) {
       return "The source and destination account cannot be the same!"
     }
@@ -54,6 +55,7 @@ export class TransactionDTO {
       return [null, "Failed to parse transaction JSON."]
     }
 
+    console.log(transactionJSON)
     const transaction = new TransactionDTO(transactionJSON)
 
     const error = transaction.isValid()
