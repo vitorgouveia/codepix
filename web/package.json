@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "001:dev": "NEXT_PUBLIC_BANK_CODE=001 NEXT_PUBLIC_BANK_NAME=BBX NEXT_PUBLIC_API_URL=http://host.docker.internal:3000 next dev -p 3000",
-    "002:dev": "NEXT_PUBLIC_BANK_CODE=002 NEXT_PUBLIC_BANK_NAME=CTER NEXT_PUBLIC_API_URL=http://host.docker.internal:3001 next dev -p 3001"
+    "001:build": "NEXT_PUBLIC_BANK_CODE=001 NEXT_PUBLIC_BANK_NAME=BBX NEXT_PUBLIC_API_URL=http://host.docker.internal:3000 next build",
+    "001:start": "NEXT_PUBLIC_BANK_CODE=001 NEXT_PUBLIC_BANK_NAME=BBX NEXT_PUBLIC_API_URL=http://host.docker.internal:3000 next start -p 3000",
+    "002:dev": "NEXT_PUBLIC_BANK_CODE=002 NEXT_PUBLIC_BANK_NAME=CTER NEXT_PUBLIC_API_URL=http://host.docker.internal:3001 next dev -p 3001",
+    "002:build": "NEXT_PUBLIC_BANK_CODE=002 NEXT_PUBLIC_BANK_NAME=CTER NEXT_PUBLIC_API_URL=http://host.docker.internal:3001 next build",
+    "002:start": "NEXT_PUBLIC_BANK_CODE=002 NEXT_PUBLIC_BANK_NAME=CTER NEXT_PUBLIC_API_URL=http://host.docker.internal:3001 next start -p 3001"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",

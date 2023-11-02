@@ -18,7 +18,11 @@ import { ConfigService } from '@nestjs/config';
           transport: Transport.KAFKA,
           options: {
             client: {
+              clientId: 'hero',
               brokers: [configService.get('KAFKA_BROKER')],
+            },
+            consumer: {
+              groupId: configService.get('KAKFA_CONSUMER_GROUP_ID'),
             },
           },
         }),

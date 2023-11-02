@@ -14,7 +14,8 @@ if(error !== null) {
 worker_threads.parentPort.postMessage("Producer connected!")
 
 // setInterval(async () => {
-//   const error = await Publish("Olá Kafka", "transactions", producer)
+//   const error = await Publish("AAAAAAAAAAAAA", "bank001", producer)
+//   console.log("sent message")
 
 //   if(error !== null) {
 //     console.log(error)

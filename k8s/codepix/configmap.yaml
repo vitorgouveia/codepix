@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: codepix-conf
+data:
+  env: |
+    PORT=50051
+    NODE_ENV=production
+    KAFKA_TRANSACTIONS_TOPIC=transactions
+    KAFKA_TRANSACTION_CONFIRMATION_TOPIC=transaction_confirmation
+    KAFKA_BROKER=host.docker.internal:9094
+    KAFKA_CLIENT_ID=codepix
+    KAFKA_CONSUMER_GROUP=codepix

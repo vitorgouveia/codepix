@@ -34,10 +34,6 @@ export class TransactionDTO {
     if(this.amount <= 0) {
       return "'amount' must be greater than 0!"
     }
-
-    if(this.status !== Status.Pending && this.status !== Status.Completed && this.status !== Status.Error) {
-      return `Status: ${this.status} is invalid!`
-    }
     
     return null
   }

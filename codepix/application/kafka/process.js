@@ -108,7 +108,6 @@ export class KafkaProcessor {
 
     const bankCode = registeredTransaction.pixKeyTo.account.bank.code
     const topic = `bank${bankCode}`
-    console.log({topic})
 
     transaction.id = registeredTransaction.id
     transaction.status = Status.Pending
@@ -119,10 +118,11 @@ export class KafkaProcessor {
       return serializeError
     }
 
-    // send via kafka
-    console.log("serialized transaction", transactionJSON)
     const kafkaErr = await Publish(transactionJSON, topic, this.producer)
-    console.log("sent to kafka",kafkaErr)
+
+    if(kafkaErr !== null) {
+      return kafkaErr
+    }
 
     return null
   }
@@ -137,7 +137,7 @@ export class KafkaProcessor {
     const transactionUseCase = TransactionUseCaseFactory()
     
     if(transaction.status === Status.Confirmed) {
-      const [confirmedTransaction, error] = transactionUseCase.Confirm(transactionUseCase.id)
+      const [confirmedTransaction, error] = await transactionUseCase.Confirm(transactionUseCase.id)
 
       if(error !== null) {
         console.log("Error on confirmed transaction")
@@ -153,11 +153,9 @@ export class KafkaProcessor {
         return serializeError
       }
   
-      // send via kafka
-      console.log("serialized transaction", transactionJSON)
       await Publish(transactionJSON, topic, this.producer)
     } else if (transaction.status === Status.Completed) {
-      const [_, error] = transactionUseCase.Complete(transactionUseCase.id)
+      const [_, error] = await transactionUseCase.Complete(transactionUseCase.id)
 
       if(error !== null) {
         return error

@@ -112,7 +112,7 @@ export class TransactionsService {
       });
 
       await manager.save(transaction);
-
+      console.log(bankAccount.balance, transaction.amount);
       bankAccount.balance += transaction.amount;
       await manager.save(bankAccount);
     });

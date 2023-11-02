@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Logger,
   Param,
   Post,
   ValidationPipe,
@@ -35,10 +36,10 @@ export class TransactionsController {
     @Payload(new ValidationPipe())
     message: CreateTransactionFromAnotherBankAccountDto | ConfirmTransactionDto,
   ) {
+    Logger.log('chegou bank1', message);
     if (process.env.BANK_CODE !== '001') {
       return;
     }
-
     await this.processTransaction(message);
   }
 
@@ -47,6 +48,7 @@ export class TransactionsController {
     @Payload(new ValidationPipe())
     message: CreateTransactionFromAnotherBankAccountDto | ConfirmTransactionDto,
   ) {
+    Logger.log('chegou bank2', message);
     if (process.env.BANK_CODE !== '002') {
       return;
     }

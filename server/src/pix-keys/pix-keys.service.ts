@@ -29,20 +29,16 @@ export class PixKeysService implements OnModuleInit {
   }
 
   async create(bankAccountId: string, createPixKeyDto: CreatePixKeyDto) {
-    console.time('findOneOrFail()');
     await this.bankAccountRepository.findOneOrFail({
       where: {
         id: bankAccountId,
       },
     });
-    console.timeEnd('findOneOrFail()');
 
-    console.time('findRemotePixKey()');
     const remotePixKey = await this.findRemotePixKey({
       key: createPixKeyDto.key,
       kind: createPixKeyDto.kind,
     });
-    console.timeEnd('findRemotePixKey()');
     if (remotePixKey) {
       return this.createIfNotExists(bankAccountId, remotePixKey);
     } else {
