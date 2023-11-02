@@ -1,12 +1,21 @@
 # Codepix
 
-
+![](.github/demo.gif)
 
 ## 💻 Sobre o Projeto
 
+O Codepix é um software que intermedia transações financeiras assim como o PIX original.
+
+O objetivo do projeto é criar um sistema capaz de realizar transações financeiras através de chaves Pix (cpf ou email) para contas do mesmo banco ou até bancos diferentes.
+
+Cada conta pode cadastrar diversas chaves pix para utilização nas transferências.
+
+
 ## Arquitetura
 
-diagrama aqui
+A arquitetura é baseada em eventos por conta das necessidades de comunicação assíncrona (notificando um serviço mesmo que esteja fora do ar) e integridade das mensagens.
+
+![Alt text](image.png)
 
 ## 🛠 Tecnologias
 
